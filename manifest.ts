@@ -2,23 +2,24 @@ import fs from 'fs'
 import path from 'path'
 import color from 'color'
 import { fileURLToPath } from 'url'
+import packageJSON from './package.json'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const colors = {
-  background: color('#1d2025').rgb().array(),
-  secondaryBackground: color('#252931').rgb().array(),
-
   foreground: color('#cccccc').rgb().array(),
-  secondaryForeground: color('#abb2bf').rgb().array(),
+  inactiveForeground: color('#7f848e').rgb().array(),
 
-  addressBarBackground: color('#282c34').rgb().array(),
+  background: color('#1d1f23').rgb().array(),
+  toolbarBackground: color('#21252c').rgb().array(),
+  addressBarBackground: color('#1d2025').rgb().array(),
 }
 
 const manifestJSON = {
-  version: '1.0.4',
   manifest_version: 3,
+  version: packageJSON.version,
+
   name: 'One Eye Care (OneDark)',
   author: 'Nazmus Sayad (nazmussayad.com)',
   description:
@@ -31,20 +32,20 @@ const manifestJSON = {
       frame_incognito: colors.background,
       frame_incognito_inactive: colors.background,
 
-      ntp_text: colors.foreground,
-      ntp_background: colors.background,
-
       background_tab: colors.background,
       background_tab_inactive: colors.background,
       background_tab_incognito: colors.background,
       background_tab_incognito_inactive: colors.background,
 
-      tab_background_text: colors.secondaryForeground,
-      tab_background_text_inactive: colors.secondaryForeground,
-      tab_background_text_incognito: colors.secondaryForeground,
-      tab_background_text_incognito_inactive: colors.secondaryForeground,
+      tab_background_text: colors.inactiveForeground,
+      tab_background_text_inactive: colors.inactiveForeground,
+      tab_background_text_incognito: colors.inactiveForeground,
+      tab_background_text_incognito_inactive: colors.inactiveForeground,
 
-      toolbar: colors.secondaryBackground,
+      ntp_text: colors.foreground,
+      ntp_background: colors.background,
+
+      toolbar: colors.toolbarBackground,
       toolbar_button_icon: colors.foreground,
 
       tab_text: colors.foreground,
