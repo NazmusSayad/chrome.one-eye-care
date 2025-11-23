@@ -1,19 +1,24 @@
 import fs from 'fs'
 import path from 'path'
-import color from 'color'
+import color, { ColorInstance } from 'color'
 import { fileURLToPath } from 'url'
 import packageJSON from './package.json'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const colors = {
-  foreground: color('#cccccc').rgb().array(),
-  inactiveForeground: color('#7f848e').rgb().array(),
+const BASE_FOREGROUND = color('#CCCCCC')
+const BASE_BACKGROUND = color('#1D2025')
 
-  background: color('#1d1f23').rgb().array(),
-  toolbarBackground: color('#21252c').rgb().array(),
-  addressBarBackground: color('#1d2025').rgb().array(),
+const colors = {
+  foreground: convertColor(BASE_FOREGROUND),
+  inactiveForeground: convertColor(BASE_FOREGROUND.darken(0.375)),
+
+  frameBackground: convertColor(BASE_BACKGROUND.darken(0.325)),
+  toolbarBackground: convertColor(BASE_BACKGROUND),
+
+  addressBarForeground: convertColor(BASE_FOREGROUND),
+  addressBarBackground: convertColor(BASE_BACKGROUND.darken(0.15)),
 }
 
 const manifestJSON = {
@@ -27,15 +32,15 @@ const manifestJSON = {
 
   theme: {
     colors: {
-      frame: colors.background,
-      frame_inactive: colors.background,
-      frame_incognito: colors.background,
-      frame_incognito_inactive: colors.background,
+      frame: colors.frameBackground,
+      frame_inactive: colors.frameBackground,
+      frame_incognito: colors.frameBackground,
+      frame_incognito_inactive: colors.frameBackground,
 
-      background_tab: colors.background,
-      background_tab_inactive: colors.background,
-      background_tab_incognito: colors.background,
-      background_tab_incognito_inactive: colors.background,
+      background_tab: colors.frameBackground,
+      background_tab_inactive: colors.frameBackground,
+      background_tab_incognito: colors.frameBackground,
+      background_tab_incognito_inactive: colors.frameBackground,
 
       tab_background_text: colors.inactiveForeground,
       tab_background_text_inactive: colors.inactiveForeground,
@@ -43,7 +48,7 @@ const manifestJSON = {
       tab_background_text_incognito_inactive: colors.inactiveForeground,
 
       ntp_text: colors.foreground,
-      ntp_background: colors.background,
+      ntp_background: colors.frameBackground,
 
       toolbar: colors.toolbarBackground,
       toolbar_button_icon: colors.foreground,
@@ -51,11 +56,21 @@ const manifestJSON = {
       tab_text: colors.foreground,
       bookmark_text: colors.foreground,
 
-      omnibox_text: colors.foreground,
+      omnibox_text: colors.addressBarForeground,
       omnibox_background: colors.addressBarBackground,
     },
   },
 }
 
-const manifestPath = path.join(__dirname, 'manifest.json')
+function convertColor(color: ColorInstance): number[] {
+  return color.rgb().array().map(Math.round)
+}
+
+const outDir = path.join(__dirname, './dist')
+if (fs.existsSync(outDir)) {
+  fs.rmSync(outDir, { recursive: true })
+}
+fs.mkdirSync(outDir)
+
+const manifestPath = path.join(outDir, 'manifest.json')
 fs.writeFileSync(manifestPath, JSON.stringify(manifestJSON))
