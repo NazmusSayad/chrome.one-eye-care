@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "tsx --watch manifest.ts",
+    "build": "tsx manifest.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "color": "^5.0.3"
+  }
+}
