@@ -15,7 +15,7 @@ const colors = {
   secondaryForeground: convertColor(BASE_FOREGROUND.darken(0.09)),
   inactiveForeground: convertColor(BASE_FOREGROUND.darken(0.375)),
 
-  frameBackground: convertColor(BASE_BACKGROUND.darken(0.5).desaturate(0.1)),
+  frameBackground: convertColor(BASE_BACKGROUND.darken(0.5).desaturate(0.5)),
   toolbarBackground: convertColor(BASE_BACKGROUND),
 
   addressBarForeground: convertColor(BASE_FOREGROUND),
