@@ -12,15 +12,14 @@ const BASE_BACKGROUND = color('#1D2025')
 
 const colors = {
   foreground: convertColor(BASE_FOREGROUND),
+  secondaryForeground: convertColor(BASE_FOREGROUND.darken(0.09)),
   inactiveForeground: convertColor(BASE_FOREGROUND.darken(0.375)),
 
-  frameBackground: convertColor(BASE_BACKGROUND.darken(0.45)),
+  frameBackground: convertColor(BASE_BACKGROUND.darken(0.5).desaturate(0.1)),
   toolbarBackground: convertColor(BASE_BACKGROUND),
 
   addressBarForeground: convertColor(BASE_FOREGROUND),
   addressBarBackground: convertColor(BASE_BACKGROUND.darken(0.15)),
-
-  bookmarkForeground: convertColor(BASE_FOREGROUND.darken(0.085)),
 }
 
 const manifestJSON = {
@@ -56,7 +55,7 @@ const manifestJSON = {
       toolbar_button_icon: colors.foreground,
 
       tab_text: colors.foreground,
-      bookmark_text: colors.bookmarkForeground,
+      bookmark_text: colors.secondaryForeground,
 
       omnibox_text: colors.addressBarForeground,
       omnibox_background: colors.addressBarBackground,
